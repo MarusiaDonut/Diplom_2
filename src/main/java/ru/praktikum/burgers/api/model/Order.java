@@ -1,4 +1,4 @@
-package classes;
+package ru.praktikum.burgers.api.model;
 
 import lombok.Getter;
 import lombok.Setter;

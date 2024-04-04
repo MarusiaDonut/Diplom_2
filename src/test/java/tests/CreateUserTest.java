@@ -1,8 +1,8 @@
 package tests;
 
-import api.UserAPI;
-import classes.ResponseUser;
-import classes.User;
+import ru.praktikum.burgers.api.client.UserAPI;
+import ru.praktikum.burgers.api.model.ResponseUser;
+import ru.praktikum.burgers.api.model.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;

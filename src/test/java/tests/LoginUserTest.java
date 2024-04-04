@@ -1,8 +1,8 @@
 package tests;
 
-import api.UserAPI;
-import classes.ResponseUser;
-import classes.User;
+import ru.praktikum.burgers.api.client.UserAPI;
+import ru.praktikum.burgers.api.model.ResponseUser;
+import ru.praktikum.burgers.api.model.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
@@ -18,15 +18,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 public class LoginUserTest {
     UserAPI userAPI = new UserAPI();
     User user = new User("test_masha_login_user@yandex.ru", "123456");
-    User createUser = new User("test_masha_login_user@yandex.ru", "123456", "TestMashaLoginUser");
     ResponseUser responseUser = new ResponseUser();
+    BaseTest baseTest = new BaseTest();
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
-
-        Response response = userAPI.sendPostRequestCreateUser(createUser);
-        responseUser = response.body().as(ResponseUser.class);
+        responseUser = baseTest.createUser();
     }
 
     @Test
@@ -72,10 +69,7 @@ public class LoginUserTest {
     @After
     @DisplayName("Delete user")
     public void logoutAndDeleteUser() {
-        if (responseUser.getAccessToken() != null) {
-            Response responseDelete = userAPI.sendDeleteRequestUser(responseUser.getAccessToken());
-            responseDelete.then().statusCode(SC_ACCEPTED);
-        }
+        baseTest.deleteUser(responseUser);
     }
 }
 

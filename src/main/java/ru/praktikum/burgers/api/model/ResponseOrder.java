@@ -1,7 +1,5 @@
-package classes;
+package ru.praktikum.burgers.api.model;
 
-import api.OrderAPI;
-import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,8 +1,9 @@
-package api;
+package ru.praktikum.burgers.api.client;
 
-import classes.Order;
+
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.praktikum.burgers.api.model.Order;
 
 import static io.restassured.RestAssured.given;
 

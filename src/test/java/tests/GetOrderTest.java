@@ -1,12 +1,11 @@
 package tests;
 
-import api.OrderAPI;
-import api.UserAPI;
-import classes.Order;
-import classes.ResponseOrder;
-import classes.ResponseUser;
-import classes.User;
-import com.google.gson.Gson;
+import ru.praktikum.burgers.api.client.OrderAPI;
+import ru.praktikum.burgers.api.client.UserAPI;
+import ru.praktikum.burgers.api.model.Order;
+import ru.praktikum.burgers.api.model.ResponseOrder;
+import ru.praktikum.burgers.api.model.ResponseUser;
+import ru.praktikum.burgers.api.model.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
@@ -16,7 +15,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +25,11 @@ public class GetOrderTest {
     UserAPI userAPI = new UserAPI();
     OrderAPI orderAPI = new OrderAPI();
     ResponseUser responseUser = new ResponseUser();
-    User createUser = new User("test_masha_get_order1@yandex.ru", "123456", "TestMashaCreateOrder1");
+    BaseTest baseTest = new BaseTest();
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
-
-        Response response = userAPI.sendPostRequestCreateUser(createUser);
-        responseUser = response.body().as(ResponseUser.class);
+        responseUser = baseTest.createUser();
     }
 
     @Test
@@ -69,10 +64,7 @@ public class GetOrderTest {
     @After
     @DisplayName("Delete user")
     public void deleteUser() {
-        if (responseUser.getAccessToken() != null) {
-            Response responseDelete = userAPI.sendDeleteRequestUser(responseUser.getAccessToken());
-            responseDelete.then().statusCode(SC_ACCEPTED);
-        }
+        baseTest.deleteUser(responseUser);
     }
 
 }
